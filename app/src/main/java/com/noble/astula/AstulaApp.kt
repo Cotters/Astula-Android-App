@@ -59,13 +59,15 @@ fun AstulaApp() {
             when (key) {
                 AppScreen.Wardrobe -> {
                     NavEntry(key) {
-                        WardrobeScreen()
+                        WardrobeScreen(onItemTapped = {
+                            backstack.add(AppScreen.Wardrobe.ItemDetail(itemId = it))
+                        })
                     }
                 }
 
                 is AppScreen.Wardrobe.ItemDetail -> {
                     NavEntry(key) {
-                        WardrobeItemDetailsScreen()
+                        WardrobeItemDetailsScreen(itemId = key.itemId)
                     }
                 }
 
