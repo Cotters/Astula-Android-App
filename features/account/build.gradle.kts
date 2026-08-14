@@ -1,10 +1,10 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.compose)
 }
 
 android {
-    namespace = "com.noble.astula"
+    namespace = "com.noble.features.account"
     compileSdk {
         version = release(37) {
             minorApiLevel = 1
@@ -12,21 +12,9 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.noble.astula"
         minSdk = 28
-        targetSdk = 37
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            optimization {
-                enable = false
-            }
-        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -47,20 +35,14 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.navigation3.ui)
-    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.material)
+
+    implementation(project(projectPath = ":presentation"))
 
     testImplementation(libs.junit)
 
-    implementation(project(projectPath = ":presentation"))
-    implementation(project(projectPath = ":features:wardrobe"))
-    implementation(project(projectPath = ":features:account"))
-
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
 
     debugImplementation(libs.androidx.compose.ui.test.manifest)
-    debugImplementation(libs.androidx.compose.ui.tooling)
-}
+    debugImplementation(libs.androidx.compose.ui.tooling)}

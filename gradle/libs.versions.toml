@@ -10,6 +10,7 @@ kotlin = "2.2.10"
 composeBom = "2025.12.00"
 material = "1.10.0"
 navigation3 = "1.1.6"
+appcompat = "1.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -30,6 +31,7 @@ androidx-compose-material3-adaptive-navigation-suite = { group = "androidx.compo
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "navigation3" }
 androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "navigation3" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -15,18 +15,25 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.ui.NavDisplay
+import com.noble.features.account.AccountScreen
+import com.noble.features.wardrobe.WardrobeItemDetailsScreen
 import com.noble.features.wardrobe.WardrobeScreen
 import com.noble.features.wardrobe.WardrobeViewModel
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed interface AppScreen: NavKey {
+sealed interface AppScreen : NavKey {
     @Serializable
-    data object Wardrobe : AppScreen
+    data object Wardrobe : AppScreen {
+        @Serializable
+        data class ItemDetail(val itemId: Int) : AppScreen
+    }
+
     @Serializable
-    data class ItemDetail(val itemId: Int) : AppScreen
+    data object Upload : AppScreen
+
     @Serializable
-    data object Account: AppScreen
+    data object Account : AppScreen
 }
 
 @Composable
@@ -49,6 +56,7 @@ fun AstulaApp(
                         )
                     },
                     label = { Text(it.label) },
+                    alwaysShowLabel = false,
                     selected = it == currentDestination,
                     onClick = {
                         currentDestination = it
@@ -61,7 +69,12 @@ fun AstulaApp(
     ) {
         NavDisplay(
             backStack = backstack,
-            onBack = { backstack.removeLastOrNull() },
+            onBack = {
+                backstack.removeLastOrNull()
+                if (backstack.last() is AppScreen.Wardrobe) {
+                    currentDestination = AppDestinations.HOME
+                }
+            },
         ) { key ->
             when (key) {
                 AppScreen.Wardrobe -> {
@@ -70,12 +83,18 @@ fun AstulaApp(
                     }
                 }
 
-                is AppScreen.ItemDetail -> NavEntry(key) {
-                    Text("Item Detail view come soon...")
+                is AppScreen.Wardrobe.ItemDetail -> {
+                    NavEntry(key) {
+                        WardrobeItemDetailsScreen()
+                    }
+                }
+
+                AppScreen.Upload -> NavEntry(key) {
+                    UploadScreen()
                 }
 
                 AppScreen.Account -> NavEntry(key) {
-                    Text("Account Screen coming soon...")
+                    AccountScreen()
                 }
 
             }
@@ -88,13 +107,13 @@ enum class AppDestinations(
     val icon: Int,
 ) {
     HOME("Home", R.drawable.ic_home),
-    FAVORITES("Favorites", R.drawable.ic_favorite),
+    UPLOAD("Upload", R.drawable.ic_add),
     PROFILE("Profile", R.drawable.ic_account_box), ;
 
     fun toNavKey(): AppScreen {
         return when (this) {
             HOME -> AppScreen.Wardrobe
-            FAVORITES -> AppScreen.ItemDetail(itemId = 123)
+            UPLOAD -> AppScreen.Upload
             PROFILE -> AppScreen.Account
         }
     }
