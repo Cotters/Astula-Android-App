@@ -10,30 +10,45 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.noble.presentation.AstulaLoadingView
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WardrobeScreen(
-    viewState: WardrobeState,
     modifier: Modifier = Modifier,
+    viewModel: WardrobeViewModel = WardrobeViewModel(),
 ) {
+    val viewState by viewModel.viewState.collectAsStateWithLifecycle()
+
     Scaffold(
         modifier = modifier,
     ) { paddingValues ->
-        Column(
+        WardrobeView(
+            viewState = viewState,
             modifier = Modifier
                 .padding(paddingValues)
                 .padding(horizontal = 8.dp, vertical = 12.dp),
-        ) {
-            Text(text = "Your Wardrobe", style = MaterialTheme.typography.titleLarge)
-            when (viewState) {
-                WardrobeState.Loading -> AstulaLoadingView()
-                is WardrobeState.Loaded -> ClothingItemListView(viewState.items)
-                is WardrobeState.Error -> Text(viewState.message)
-            }
+        )
+    }
+}
+
+@Composable
+private fun WardrobeView(
+    viewState: WardrobeState,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier
+    ) {
+        Text(text = "Your Wardrobe", style = MaterialTheme.typography.titleLarge)
+        when (viewState) {
+            WardrobeState.Loading -> AstulaLoadingView()
+            is WardrobeState.Loaded -> ClothingItemListView(viewState.items)
+            is WardrobeState.Error -> Text(viewState.message)
         }
     }
 }
