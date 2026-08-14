@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.noble.features.wardrobe"
+    namespace = "com.noble.presentation"
     compileSdk {
         version = release(37) {
             minorApiLevel = 1
@@ -36,8 +36,6 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.material)
-
-    implementation(project(projectPath = ":presentation"))
 
     testImplementation(libs.junit)
 

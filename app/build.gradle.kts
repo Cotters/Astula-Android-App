@@ -50,6 +50,7 @@ dependencies {
 
     testImplementation(libs.junit)
 
+    implementation(project(projectPath = ":presentation"))
     implementation(project(projectPath = ":features:wardrobe"))
 
     androidTestImplementation(platform(libs.androidx.compose.bom))

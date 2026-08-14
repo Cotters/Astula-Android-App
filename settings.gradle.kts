@@ -24,4 +24,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Astula"
 include(":app")
+include(":presentation")
 include(":features:wardrobe")

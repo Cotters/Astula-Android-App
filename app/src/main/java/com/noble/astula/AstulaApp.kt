@@ -13,13 +13,16 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.PreviewScreenSizes
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.noble.features.wardrobe.WardrobeScreen
+import com.noble.features.wardrobe.WardrobeViewModel
 
-@PreviewScreenSizes
 @Composable
-fun AstulaApp() {
+fun AstulaApp(
+    wardrobeViewModel: WardrobeViewModel,
+) {
     var currentDestination by rememberSaveable { mutableStateOf(AppDestinations.HOME) }
+    val viewState by wardrobeViewModel.viewState.collectAsStateWithLifecycle()
 
     NavigationSuiteScaffold(
         navigationSuiteItems = {
@@ -40,6 +43,7 @@ fun AstulaApp() {
     ) {
         Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
             WardrobeScreen(
+                viewState = viewState,
                 modifier = Modifier.padding(innerPadding),
             )
         }
