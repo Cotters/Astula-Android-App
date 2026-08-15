@@ -16,6 +16,8 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", project(":presentation"))
                 add("implementation", libs.findLibrary("androidx-navigation3-runtime").get())
                 add("implementation", libs.findLibrary("hilt-navigation-compose").get())
+                add("debugImplementation", libs.findLibrary("androidx.compose.ui.test.manifest").get())
+                add("debugImplementation", libs.findLibrary("androidx.compose.ui.tooling").get())
             }
         }
     }

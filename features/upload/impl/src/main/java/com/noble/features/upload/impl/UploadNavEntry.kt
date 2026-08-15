@@ -5,6 +5,9 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
+import androidx.compose.runtime.getValue
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.ui.NavDisplay
@@ -22,6 +25,11 @@ fun EntryProviderScope<NavKey>.uploadScreenEntry() {
             EnterTransition.None togetherWith fadeOut(tween(navDurationMillis))
         }
     ) {
-        UploadScreen()
+        val viewModel = hiltViewModel<UploadViewModel>()
+        val viewState by viewModel.viewState.collectAsStateWithLifecycle()
+        UploadScreen(
+            viewState = viewState,
+            onViewEvent = viewModel::onViewEvent,
+        )
     }
 }
