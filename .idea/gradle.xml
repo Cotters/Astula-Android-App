@@ -28,6 +28,9 @@
             <option value="$PROJECT_DIR$/features/account" />
             <option value="$PROJECT_DIR$/features/account/api" />
             <option value="$PROJECT_DIR$/features/account/impl" />
+            <option value="$PROJECT_DIR$/features/upload" />
+            <option value="$PROJECT_DIR$/features/upload/api" />
+            <option value="$PROJECT_DIR$/features/upload/impl" />
             <option value="$PROJECT_DIR$/features/wardrobe" />
             <option value="$PROJECT_DIR$/features/wardrobe/api" />
             <option value="$PROJECT_DIR$/features/wardrobe/impl" />

@@ -59,8 +59,9 @@ dependencies {
     testImplementation(libs.junit)
 
     implementation(project(projectPath = ":presentation"))
-    implementation(project(projectPath = ":features:account:impl"))
     implementation(project(projectPath = ":features:wardrobe:impl"))
+    implementation(project(projectPath = ":features:upload:impl"))
+    implementation(project(projectPath = ":features:account:impl"))
 
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)

@@ -1,5 +1,4 @@
-package com.noble.astula
-
+package com.noble.features.upload.impl
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
