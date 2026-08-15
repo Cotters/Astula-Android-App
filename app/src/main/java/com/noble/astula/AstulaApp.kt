@@ -5,19 +5,15 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
 import androidx.compose.material3.Icon
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
-import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScope
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
+import com.noble.account.api.AccountScreen
 import com.noble.account.impl.accountEntry
-import com.noble.astula.navigation.BottomNavDestinations
+import com.noble.features.upload.api.UploadScreen
 import com.noble.features.upload.impl.uploadScreenEntry
 import com.noble.features.wardrobe.api.WardrobeScreen
 import com.noble.features.wardrobe.impl.ui.itemDetailEntry
@@ -26,31 +22,37 @@ import com.noble.presentation.rememberListDetailSceneStrategy
 
 @Composable
 fun AstulaApp() {
+    val bottomNavDestinations = setOf(WardrobeScreen, UploadScreen, AccountScreen)
+    val navBarIcons: Map<NavKey, Int> = mapOf(
+        WardrobeScreen to R.drawable.ic_home,
+        UploadScreen to R.drawable.ic_add,
+        AccountScreen to R.drawable.ic_account_box,
+    )
     val backStack = rememberNavBackStack(WardrobeScreen)
-    var currentDestination by rememberSaveable { mutableStateOf(BottomNavDestinations.HOME) }
-
     val strategy = rememberListDetailSceneStrategy<NavKey>()
 
     NavigationSuiteScaffold(
         navigationSuiteItems = {
-            currentDestination = bottomNavDestinations(
-                currentDestination,
-                onItemSelected = { destination ->
-                    currentDestination = destination
-                    backStack.clear()
-                    backStack.addAll(setOf(WardrobeScreen, destination.toNavKey()))
-                }
-            )
+            bottomNavDestinations.forEach { destination ->
+                item(
+                    icon = {
+                        Icon(
+                            painterResource(navBarIcons.getValue(destination)),
+                            contentDescription = destination.toString(),
+                        )
+                    },
+                    selected = destination == backStack.lastOrNull { it in bottomNavDestinations },
+                    onClick = {
+                        backStack.clear()
+                        backStack.addAll(listOf(WardrobeScreen, destination))
+                    },
+                )
+            }
         }
     ) {
         NavDisplay(
             backStack = backStack,
-            onBack = {
-                backStack.removeLastOrNull()
-                if (backStack.last() is WardrobeScreen) {
-                    currentDestination = BottomNavDestinations.HOME
-                }
-            },
+            onBack = backStack::removeLastOrNull,
             sceneStrategies = listOf(strategy),
             entryProvider = entryProvider {
                 wardrobeEntry(backStack)
@@ -77,21 +79,3 @@ fun AstulaApp() {
     }
 }
 
-private fun NavigationSuiteScope.bottomNavDestinations(
-    currentDestination: BottomNavDestinations,
-    onItemSelected: (BottomNavDestinations) -> Unit,
-): BottomNavDestinations {
-    BottomNavDestinations.entries.forEach { destination ->
-        item(
-            icon = {
-                Icon(
-                    painterResource(destination.icon),
-                    contentDescription = destination.label,
-                )
-            },
-            selected = destination == currentDestination,
-            onClick = { onItemSelected(destination) },
-        )
-    }
-    return currentDestination
-}

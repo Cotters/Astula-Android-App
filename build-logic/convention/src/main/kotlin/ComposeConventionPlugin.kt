@@ -27,7 +27,6 @@ class ComposeConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("androidx-compose-ui-tooling-preview").get())
                 add("implementation", libs.findLibrary("androidx-core-ktx").get())
                 add("implementation", libs.findLibrary("androidx-lifecycle-runtime-ktx").get())
-                add("implementation", libs.findLibrary("material").get())
                 add("implementation", libs.findLibrary("hilt-navigation-compose").get())
             }
         }
