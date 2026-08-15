@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.noble.features.account.impl"
+    namespace = "com.noble.features.wardrobe.impl"
 }
 
 dependencies {
-    api(project(projectPath = ":features:account:api"))
+    api(project(projectPath = ":features:wardrobe:api"))
 
     testImplementation(libs.junit)
 

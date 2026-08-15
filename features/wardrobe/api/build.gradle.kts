@@ -3,5 +3,5 @@ plugins {
 }
 
 android {
-    namespace = "com.noble.features.account.api"
+    namespace = "com.noble.features.wardrobe.api"
 }

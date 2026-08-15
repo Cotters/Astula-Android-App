@@ -29,6 +29,8 @@
             <option value="$PROJECT_DIR$/features/account/api" />
             <option value="$PROJECT_DIR$/features/account/impl" />
             <option value="$PROJECT_DIR$/features/wardrobe" />
+            <option value="$PROJECT_DIR$/features/wardrobe/api" />
+            <option value="$PROJECT_DIR$/features/wardrobe/impl" />
             <option value="$PROJECT_DIR$/presentation" />
           </set>
         </option>

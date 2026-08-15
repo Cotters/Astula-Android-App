@@ -1,8 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
-    id("com.google.devtools.ksp")
-    kotlin("plugin.serialization") version "2.3.20"
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.astula.serialization)
 }
 
 android {
@@ -59,8 +59,8 @@ dependencies {
     testImplementation(libs.junit)
 
     implementation(project(projectPath = ":presentation"))
-    implementation(project(projectPath = ":features:wardrobe"))
     implementation(project(projectPath = ":features:account:impl"))
+    implementation(project(projectPath = ":features:wardrobe:impl"))
 
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)

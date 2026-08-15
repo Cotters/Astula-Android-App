@@ -6,6 +6,7 @@ group = "com.noble.buildlogic"
 
 dependencies {
     compileOnly(libs.android.gradle.plugin)
+    implementation(libs.kotlin.serialization.plugin)
 }
 
 gradlePlugin {
@@ -20,9 +21,19 @@ gradlePlugin {
             implementationClass = "ComposeConventionPlugin"
         }
 
+        register("serialization") {
+            id = "astula.kotlin.serialization"
+            implementationClass = "SerializationConventionPlugin"
+        }
+
         register("androidHilt") {
             id = "astula.android.hilt"
             implementationClass = "HiltConventionPlugin"
+        }
+
+        register("androidFeatureApi") {
+            id = "astula.android.feature.api"
+            implementationClass = "AndroidFeatureApiConventionPlugin"
         }
 
         register("androidFeature") {
