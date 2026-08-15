@@ -2,12 +2,14 @@ package com.noble.features.wardrobe.impl
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
 
 data class ClothingItem(
@@ -23,7 +25,8 @@ sealed interface WardrobeState {
     data class Error(val message: String) : WardrobeState
 }
 
-class WardrobeViewModel : ViewModel() {
+@HiltViewModel
+class WardrobeViewModel @Inject constructor() : ViewModel() {
 
     private val _state = MutableStateFlow<WardrobeState>(WardrobeState.Loading)
     val viewState: StateFlow<WardrobeState> = _state

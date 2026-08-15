@@ -1,5 +1,8 @@
 package com.noble.features.wardrobe.impl.ui
 
+import androidx.compose.runtime.getValue
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
@@ -7,12 +10,19 @@ import com.noble.features.wardrobe.api.ItemDetailScreen
 import com.noble.features.wardrobe.api.WardrobeScreen
 import com.noble.features.wardrobe.impl.WardrobeItemDetailsScreen
 import com.noble.features.wardrobe.impl.WardrobeScreen
+import com.noble.features.wardrobe.impl.WardrobeState
+import com.noble.features.wardrobe.impl.WardrobeViewModel
 
 fun EntryProviderScope<NavKey>.wardrobeEntry(backStack: NavBackStack<NavKey>) {
     entry<WardrobeScreen> {
-        WardrobeScreen(onItemTapped = {
-            backStack.add(ItemDetailScreen(itemId = it))
-        })
+        val viewModel = hiltViewModel<WardrobeViewModel>()
+        val viewState: WardrobeState by viewModel.viewState.collectAsStateWithLifecycle()
+        WardrobeScreen(
+            viewState = viewState,
+            onItemTapped = {
+                backStack.add(ItemDetailScreen(itemId = it))
+            }
+        )
     }
 }
 

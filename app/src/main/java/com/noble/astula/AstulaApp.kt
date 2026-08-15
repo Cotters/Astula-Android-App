@@ -19,7 +19,6 @@ import com.noble.features.wardrobe.api.WardrobeScreen
 import com.noble.features.wardrobe.impl.ui.itemDetailEntry
 import com.noble.features.wardrobe.impl.ui.wardrobeEntry
 
-
 @Composable
 fun AstulaApp() {
     val backStack = rememberNavBackStack(WardrobeScreen)
