@@ -45,6 +45,8 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version = "2.3.10" }
+astula-library = { id = "astula.android.library" }
+astula-compose = { id = "astula.android.compose" }
 astula-serialization = { id = "astula.kotlin.serialization" }
 astula-feature = { id = "astula.android.feature" }
 astula-feature-api = { id = "astula.android.feature.api" }

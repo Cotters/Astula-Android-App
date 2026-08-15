@@ -18,6 +18,7 @@ import com.noble.features.wardrobe.impl.WardrobeItemDetailsScreen
 import com.noble.features.wardrobe.impl.WardrobeScreen
 import com.noble.features.wardrobe.impl.WardrobeState
 import com.noble.features.wardrobe.impl.WardrobeViewModel
+import com.noble.presentation.ListDetailScene
 
 private const val navDurationMillis = 200
 
@@ -29,7 +30,7 @@ fun EntryProviderScope<NavKey>.wardrobeEntry(backStack: NavBackStack<NavKey>) {
             EnterTransition.None togetherWith fadeOut(tween(navDurationMillis))
         } + NavDisplay.predictivePopTransitionSpec {
             EnterTransition.None togetherWith fadeOut(tween(navDurationMillis))
-        }
+        } + ListDetailScene.listPane()
     ) {
         val viewModel = hiltViewModel<WardrobeViewModel>()
         val viewState: WardrobeState by viewModel.viewState.collectAsStateWithLifecycle()
@@ -43,7 +44,9 @@ fun EntryProviderScope<NavKey>.wardrobeEntry(backStack: NavBackStack<NavKey>) {
 }
 
 fun EntryProviderScope<NavKey>.itemDetailEntry() {
-    entry<ItemDetailScreen> { item ->
+    entry<ItemDetailScreen>(
+        metadata = ListDetailScene.detailPane()
+    ) { item ->
         WardrobeItemDetailsScreen(itemId = item.itemId)
     }
 }

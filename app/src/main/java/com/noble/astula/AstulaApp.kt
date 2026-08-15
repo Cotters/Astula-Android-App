@@ -12,6 +12,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
+import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
@@ -21,11 +22,14 @@ import com.noble.features.upload.impl.uploadScreenEntry
 import com.noble.features.wardrobe.api.WardrobeScreen
 import com.noble.features.wardrobe.impl.ui.itemDetailEntry
 import com.noble.features.wardrobe.impl.ui.wardrobeEntry
+import com.noble.presentation.rememberListDetailSceneStrategy
 
 @Composable
 fun AstulaApp() {
     val backStack = rememberNavBackStack(WardrobeScreen)
     var currentDestination by rememberSaveable { mutableStateOf(BottomNavDestinations.HOME) }
+
+    val strategy = rememberListDetailSceneStrategy<NavKey>()
 
     NavigationSuiteScaffold(
         navigationSuiteItems = {
@@ -47,6 +51,7 @@ fun AstulaApp() {
                     currentDestination = BottomNavDestinations.HOME
                 }
             },
+            sceneStrategies = listOf(strategy),
             entryProvider = entryProvider {
                 wardrobeEntry(backStack)
                 itemDetailEntry()
