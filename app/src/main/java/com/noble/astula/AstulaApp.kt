@@ -1,5 +1,6 @@
 package com.noble.astula
 
+import androidx.annotation.DrawableRes
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
@@ -20,31 +21,36 @@ import com.noble.features.wardrobe.impl.ui.itemDetailEntry
 import com.noble.features.wardrobe.impl.ui.wardrobeEntry
 import com.noble.presentation.rememberListDetailSceneStrategy
 
+data class NavigationBarItem(
+    val key: NavKey,
+    @DrawableRes val icon: Int,
+    val label: String,
+)
+
 @Composable
 fun AstulaApp() {
-    val bottomNavDestinations = setOf(WardrobeScreen, UploadScreen, AccountScreen)
-    val navBarIcons: Map<NavKey, Int> = mapOf(
-        WardrobeScreen to R.drawable.ic_home,
-        UploadScreen to R.drawable.ic_add,
-        AccountScreen to R.drawable.ic_account_box,
+    val navigationBarItems = listOf(
+        NavigationBarItem(WardrobeScreen, R.drawable.ic_home, "Home"),
+        NavigationBarItem(UploadScreen, R.drawable.ic_add, "Upload Photo"),
+        NavigationBarItem(AccountScreen, R.drawable.ic_account_box, "Account"),
     )
+    val topLevelDestinations = navigationBarItems.map(NavigationBarItem::key)
     val backStack = rememberNavBackStack(WardrobeScreen)
-    val strategy = rememberListDetailSceneStrategy<NavKey>()
 
     NavigationSuiteScaffold(
         navigationSuiteItems = {
-            bottomNavDestinations.forEach { destination ->
+            navigationBarItems.forEach { destination ->
                 item(
                     icon = {
                         Icon(
-                            painterResource(navBarIcons.getValue(destination)),
-                            contentDescription = destination.toString(),
+                            painterResource(destination.icon),
+                            contentDescription = destination.label,
                         )
                     },
-                    selected = destination == backStack.lastOrNull { it in bottomNavDestinations },
+                    selected = destination.key == backStack.lastOrNull { it in topLevelDestinations },
                     onClick = {
                         backStack.clear()
-                        backStack.addAll(listOf(WardrobeScreen, destination))
+                        backStack.addAll(listOf(WardrobeScreen, destination.key))
                     },
                 )
             }
@@ -53,7 +59,7 @@ fun AstulaApp() {
         NavDisplay(
             backStack = backStack,
             onBack = backStack::removeLastOrNull,
-            sceneStrategies = listOf(strategy),
+            sceneStrategies = listOf(rememberListDetailSceneStrategy()),
             entryProvider = entryProvider {
                 wardrobeEntry(backStack)
                 itemDetailEntry()
