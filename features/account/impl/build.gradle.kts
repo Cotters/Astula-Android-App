@@ -3,10 +3,12 @@ plugins {
 }
 
 android {
-    namespace = "com.noble.features.account"
+    namespace = "com.noble.features.account.impl"
 }
 
 dependencies {
+    api(project(projectPath = ":features:account:api"))
+
     testImplementation(libs.junit)
 
     androidTestImplementation(libs.androidx.espresso.core)

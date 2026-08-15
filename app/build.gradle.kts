@@ -60,7 +60,7 @@ dependencies {
 
     implementation(project(projectPath = ":presentation"))
     implementation(project(projectPath = ":features:wardrobe"))
-    implementation(project(projectPath = ":features:account"))
+    implementation(project(projectPath = ":features:account:impl"))
 
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)

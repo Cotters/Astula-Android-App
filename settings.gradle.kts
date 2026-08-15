@@ -27,4 +27,5 @@ rootProject.name = "Astula"
 include(":app")
 include(":presentation")
 include(":features:wardrobe")
-include(":features:account")
+include(":features:account:api")
+include(":features:account:impl")

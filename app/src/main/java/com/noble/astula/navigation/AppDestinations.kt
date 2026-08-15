@@ -1,5 +1,7 @@
 package com.noble.astula.navigation
 
+import androidx.navigation3.runtime.NavKey
+import com.noble.account.api.AccountScreen
 import com.noble.astula.R
 
 enum class AppDestinations(
@@ -10,11 +12,11 @@ enum class AppDestinations(
     UPLOAD("Upload", R.drawable.ic_add),
     PROFILE("Profile", R.drawable.ic_account_box);
 
-    fun toNavKey(): AppScreen {
+    fun toNavKey(): NavKey {
         return when (this) {
             HOME -> AppScreen.Wardrobe
             UPLOAD -> AppScreen.Upload
-            PROFILE -> AppScreen.Account
+            PROFILE -> AccountScreen
         }
     }
 }

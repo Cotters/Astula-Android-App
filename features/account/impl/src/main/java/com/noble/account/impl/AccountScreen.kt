@@ -1,4 +1,4 @@
-package com.noble.features.account
+package com.noble.account.impl
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -20,5 +20,4 @@ fun AccountScreen(
             Text("Account Screen coming soon...")
         }
     }
-
 }
