@@ -1,5 +1,8 @@
 package com.noble.astula
 
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.material3.Icon
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScope
@@ -49,6 +52,21 @@ fun AstulaApp() {
                 itemDetailEntry()
                 uploadScreenEntry()
                 accountEntry()
+            },
+            transitionSpec = {
+                slideInHorizontally(
+                    initialOffsetX = { it }
+                ) togetherWith slideOutHorizontally(targetOffsetX = { -it })
+            },
+            popTransitionSpec = {
+                slideInHorizontally(
+                    initialOffsetX = { -it }
+                ) togetherWith slideOutHorizontally(targetOffsetX = { it })
+            },
+            predictivePopTransitionSpec = {
+                slideInHorizontally(
+                    initialOffsetX = { -it }
+                ) togetherWith slideOutHorizontally(targetOffsetX = { it })
             }
         )
     }
