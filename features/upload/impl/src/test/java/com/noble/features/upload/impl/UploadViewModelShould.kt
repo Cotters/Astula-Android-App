@@ -1,7 +1,7 @@
 package com.noble.features.upload.impl
 
 import com.noble.features.upload.api.domain.NewWardrobeItem
-import com.noble.features.upload.api.domain.SaveWardrobeItemUseCase
+import com.noble.features.upload.impl.domain.SaveWardrobeItemUseCase
 import com.noble.tests.TestDispatcherRule
 import io.mockk.MockKAnnotations
 import io.mockk.coVerify

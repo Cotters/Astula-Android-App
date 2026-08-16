@@ -1,5 +1,5 @@
 package com.noble.features.upload.api.domain
 
-interface IWardrobeRepository {
+interface IUploadRepository {
     suspend fun saveItem(item: NewWardrobeItem)
 }
