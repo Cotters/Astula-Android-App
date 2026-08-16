@@ -35,6 +35,7 @@
             <option value="$PROJECT_DIR$/features/wardrobe/api" />
             <option value="$PROJECT_DIR$/features/wardrobe/impl" />
             <option value="$PROJECT_DIR$/presentation" />
+            <option value="$PROJECT_DIR$/tests" />
           </set>
         </option>
       </GradleProjectSettings>

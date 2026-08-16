@@ -9,9 +9,10 @@ class AndroidFeatureApiConventionPlugin : Plugin<Project> {
         with(target) {
             pluginManager.apply("astula.android.library")
             pluginManager.apply("astula.kotlin.serialization")
+            pluginManager.apply("astula.android.hilt")
 
             dependencies {
-                add("implementation", libs.findLibrary("androidx-navigation3-ui").get())
+            add("implementation", libs.findLibrary("androidx-navigation3-ui").get())
             }
         }
     }

@@ -1,10 +1,14 @@
 package com.noble.features.upload.impl
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.noble.features.upload.api.domain.NewWardrobeItem
+import com.noble.features.upload.api.domain.SaveWardrobeItemUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 sealed interface UploadViewEvent {
@@ -20,7 +24,9 @@ data class UploadViewState(
 )
 
 @HiltViewModel
-class UploadViewModel @Inject constructor() : ViewModel() {
+class UploadViewModel @Inject constructor(
+    private val saveWardrobeItemUseCase: SaveWardrobeItemUseCase,
+) : ViewModel() {
 
     private val _state = MutableStateFlow(UploadViewState())
     val viewState: StateFlow<UploadViewState> = _state
@@ -44,8 +50,12 @@ class UploadViewModel @Inject constructor() : ViewModel() {
     }
 
     private fun onSubmitPressed() {
-        if (isSaving()) return
+        val state = _state.value
+        if (state.isSaving) return
         _state.update { it.copy(isSaving = true) }
+        viewModelScope.launch {
+            saveWardrobeItemUseCase.run(NewWardrobeItem(name = state.name, description = state.description))
+        }
     }
 
     private fun isSaving(): Boolean = _state.value.isSaving

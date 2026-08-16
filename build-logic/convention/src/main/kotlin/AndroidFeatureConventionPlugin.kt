@@ -18,6 +18,13 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("hilt-navigation-compose").get())
                 add("debugImplementation", libs.findLibrary("androidx.compose.ui.test.manifest").get())
                 add("debugImplementation", libs.findLibrary("androidx.compose.ui.tooling").get())
+                add("testImplementation", libs.findLibrary("mockk").get())
+                add("testImplementation", libs.findLibrary("junit").get())
+                add("testImplementation", libs.findLibrary("androidx-junit").get())
+                add("testImplementation", libs.findLibrary("kotlinx-coroutines-test").get())
+                add("testImplementation", project(":tests"))
+//                androidTestImplementation(libs.androidx.espresso.core)
+//                androidTestImplementation(libs.androidx.junit)
             }
         }
     }
