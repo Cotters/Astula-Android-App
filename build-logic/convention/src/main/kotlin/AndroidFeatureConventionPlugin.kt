@@ -23,6 +23,7 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
                 add("testImplementation", libs.findLibrary("androidx-junit").get())
                 add("testImplementation", libs.findLibrary("kotlinx-coroutines-test").get())
                 add("testImplementation", project(":tests"))
+                add("androidTestImplementation", libs.findLibrary("androidx-compose-ui-test-junit4").get())
 //                androidTestImplementation(libs.androidx.espresso.core)
 //                androidTestImplementation(libs.androidx.junit)
             }

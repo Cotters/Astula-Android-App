@@ -50,7 +50,7 @@ fun AstulaApp() {
                     selected = destination.key == backStack.lastOrNull { it in topLevelDestinations },
                     onClick = {
                         backStack.clear()
-                        backStack.addAll(listOf(WardrobeScreen, destination.key))
+                        backStack.addAll(setOf(WardrobeScreen, destination.key))
                     },
                 )
             }

@@ -21,7 +21,10 @@ data class UploadViewState(
     val name: String = "",
     val description: String = "",
     val isSaving: Boolean = false,
-)
+) {
+    val canSubmit: Boolean
+        get() = name.isNotEmpty() && description.isNotEmpty() && !isSaving
+}
 
 @HiltViewModel
 class UploadViewModel @Inject constructor(
@@ -51,7 +54,7 @@ class UploadViewModel @Inject constructor(
 
     private fun onSubmitPressed() {
         val state = _state.value
-        if (state.isSaving) return
+        if (state.canSubmit) return
         _state.update { it.copy(isSaving = true) }
         viewModelScope.launch {
             saveWardrobeItemUseCase.run(NewWardrobeItem(name = state.name, description = state.description))
