@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -26,7 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun UploadScreen(
+internal fun UploadScreen(
     viewState: UploadViewState,
     onViewEvent: (UploadViewEvent) -> Unit,
     modifier: Modifier = Modifier,
@@ -54,7 +55,7 @@ fun UploadForm(
     modifier: Modifier = Modifier,
 ) {
     val widthModifier = Modifier
-        .widthIn(max = 500.dp)
+        .widthIn(max = 400.dp)
         .fillMaxWidth()
     Column(
         modifier = modifier
@@ -66,7 +67,7 @@ fun UploadForm(
         Box(
             modifier = widthModifier
                 .background(Color.Gray)
-                .height(400.dp)
+                .aspectRatio(1.0f)
                 .fillMaxWidth()
         )
         OutlinedTextField(

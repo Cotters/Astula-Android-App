@@ -27,7 +27,7 @@ data class UploadViewState(
 }
 
 @HiltViewModel
-class UploadViewModel @Inject constructor(
+internal class UploadViewModel @Inject constructor(
     private val saveWardrobeItemUseCase: SaveWardrobeItemUseCase,
 ) : ViewModel() {
 

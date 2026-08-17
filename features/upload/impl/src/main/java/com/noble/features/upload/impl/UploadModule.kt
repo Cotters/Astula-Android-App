@@ -9,9 +9,9 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface UploadModule {
+internal interface UploadModule {
 
     @Binds
-    abstract fun bindUploadRepository(impl: UploadRepository): IUploadRepository
+    fun bindUploadRepository(impl: UploadRepository): IUploadRepository
 
 }
