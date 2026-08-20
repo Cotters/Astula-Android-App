@@ -54,7 +54,7 @@ internal class UploadViewModel @Inject constructor(
 
     private fun onSubmitPressed() {
         val state = _state.value
-        if (state.canSubmit) return
+        if (!state.canSubmit) return
         _state.update { it.copy(isSaving = true) }
         viewModelScope.launch {
             saveWardrobeItemUseCase.run(NewWardrobeItem(name = state.name, description = state.description))

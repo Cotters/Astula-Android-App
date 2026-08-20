@@ -7,6 +7,8 @@ import io.mockk.MockKAnnotations
 import io.mockk.coVerify
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.slot
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Assert.assertFalse
@@ -14,15 +16,16 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class UploadViewModelShould {
 
     @get:Rule
-    private val testDispatcher = TestDispatcherRule()
+    private val testDispatcherRule = TestDispatcherRule()
 
     @RelaxedMockK
     private lateinit var saveWardrobeItemUseCase: SaveWardrobeItemUseCase
 
-    val viewModel by lazy { UploadViewModel(saveWardrobeItemUseCase) }
+    internal val viewModel by lazy { UploadViewModel(saveWardrobeItemUseCase) }
 
     val viewState: UploadViewState
         get() = viewModel.viewState.value
@@ -41,14 +44,18 @@ class UploadViewModelShould {
     }
 
     @Test
-    fun `set state to saving when submit pressed`() {
+    fun `set state to saving when submit pressed given valid state`() {
         viewModel.onViewEvent(UploadViewEvent.SubmitPressed)
+        assertFalse(viewState.isSaving)
 
+        viewModel.onViewEvent(UploadViewEvent.NameUpdated("Test Name"))
+        viewModel.onViewEvent(UploadViewEvent.DescriptionUpdated("Test Description"))
+        viewModel.onViewEvent(UploadViewEvent.SubmitPressed)
         assert(viewState.isSaving)
     }
 
     @Test
-    fun `save item when submit pressed`() {
+    fun `save item when submit pressed`() = runTest {
         val name = "Test Name"
         val description = "Test Description"
         viewModel.onViewEvent(UploadViewEvent.NameUpdated(name))
